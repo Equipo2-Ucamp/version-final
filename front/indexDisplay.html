@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../imagenes/diagrama.svg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">    
+    <title>Stats COVID-19</title>
+</head>
+<!-- Here put into body event onload="initCharts()" -->
+<body>
+        <!-- header -->
+        <section id="header">
+            <nav class="navbar navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="../imagenes/diagrama.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                        <h1 class="header-title">Dashboard using API: Covid-19-API</h1>
+                    </a>
+                </div>
+            </nav>
+        </section>
+        <div class="main-content">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-one-third" id="inputs">
+                        <div id="show-spinner-initial"></div>
+                        <li>
+                            <div class="field">
+                                <label class="label">Country</label>
+                                <div class="select">
+                                    <select id="data-country"></select>
+                                </div>
+                            </div> 
+                        </li>
+                        <li>
+                            <div class="field">
+                                <label class="label">Status</label>
+                                <div class="select" class="has-icons-left">
+                                    <select  id="data-status">
+                                        <option value="recovered">Recovered</option>
+                                        <option value="deaths">Deaths</option>
+                                        <option value="confirmed">Confirmed</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                        <li> 
+                            <div class="field">
+                                <label class="label">Initial Date:</label>
+                                <input type ="date" id="data-initial-date" name="data-initial-date" required="required">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="field">
+                                <label class="label">Final Date:</label>
+                                <input type ="date" id="data-final-date" name="data-final-date" required="required">
+                            </div>
+                        </li><br>
+                        <li>
+                            <p>  <button id="btn-search" class="btn btn-success" onclick="getData()">Search</button> </p> 
+                            <div id="show-spinner"></div>
+                        </li>
+                    </div>
+                    <div class="column">
+                        <div class="col" id="chart2">
+                            <div calss="contenedor">
+                                <div class="content">
+                                    <canvas id="myChart2"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns ">
+                    <div class="column is-one-third">
+                        <div class="col" id="chart1">
+                            <div calss="contenedor">
+                                <div class="content">
+                                    <canvas id="myChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="col" id="chart3">
+                            <div calss="contenedor">
+                                <div class="content">
+                                    <canvas id="myChart3"></canvas>
+                                </div>
+                            </div>
+                        </div>       
+                    </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <footer class="page-footer font-small bg-dark text-light bg-dark" id="profooter">
+            <div class="footer-copyright text-center py-3">
+                <div class="columns">
+                    <div class="partners column is-one-third">
+                        <h1 class="titleColumbs">Participantes:</h1>
+                            <li><a href="https://github.com/CaroPrez" class="text-success"> Carolina Pérez</a></li>
+                            <li><a href="https://github.com/itzibam" class="text-success">Itzel Angélica Ibañez Miranda</a></li>
+                            <li><a href="https://github.com/aabarca7" class="text-success">Alan José Abarca Velázquez</a></li>
+                            <li><a href="https://github.com/Albert-29" class="text-success">Alberto Miranda Pacheco</a></li>
+                            <li><a href="https://github.com/Angel25Novoa" class="text-success">Jorge Angel Novoa</a></li>
+                            <li><a href="https://github.com/Omar-ROrozco" class="text-success">Omar Rodrigo Orozco Camarena</a></li>
+                            <li><a href="#" class="text-success">Martín Barrera</a></li>
+                            <li><a href="#" class="text-success">Raúl Eduardo Trejo Suárez</a></li>
+                            <li><a href="https://github.com/gerpaxbc" target="_blank" class="text-success">Gerardo Paxtian Torres</a></li>
+                            <li><a href="https://github.com/jantoniosalinas" class="text-success">José Antonio Salinas Ochoa</a></li>
+                    </div>
+                    <div class="column column is-one-third">
+                        <h1 class="titleColumbs">Proyecto 3</h2><br>
+                        <strong>Tablero de Datos</strong><br>
+                        <strong>"Dashboard"</strong><br>
+                        <img src="../imagenes/diagrama.svg" width="110px" height="110px">
+                    </div>
+                    <div class="column is-one-third">
+                        <h1 class="titleColumbs">Datos obtenidos desde:</h1> 
+                        <li><a href ="https://covid-api.mmediagroup.fr/v1/cases?country=" target="_blank" class="text-success">https://covid-api.mmediagroup.fr/v1/cases?country=</a></li> <br>
+                        <li><a href ="https://bulma.io" target="_blank" class="text-success">https://bulma.io</a></li><br>
+                        <li><a href ="https://datos.covid-19.conacyt.mx/" target="_blank" class="text-success">https://datos.covid-19.conacyt.mx/</a></li><br>
+                        <li><a href ="https://getbootstrap.com" target="_blank" class="text-success">https://getbootstrap.com</a></li><br>
+                        <li><a href ="https://www.who.int/es" target="_blank"class="text-success">https://www.who.int/es</a></li><br>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <script type="text/javascript" src="appDisplay.js"></script>
+</body>
+</html> 
